@@ -1,0 +1,32 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+div.intro-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.intro-header {
+  margin: 1.5rem auto 2.5rem;
+  font-size: 3rem;
+}
+
+.code {
+  font-family: "Source Code Pro", monospace;
+  font-size: 1.75rem;
+}
+
+.intro p {
+  line-height: 1.4;
+  /*width: 100%;*/
+  max-width: 725px;
+  font-size: 1.75rem;
+  color: silver;
+  margin: 1rem 3rem;
+}
