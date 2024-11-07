@@ -1,0 +1,211 @@
+@use "./_variables.scss";
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  min-height: 100vh;
+  box-sizing: border-box;
+  // padding: 10px;
+}
+
+// intro
+// clock
+// headshot
+// github
+// linkedin
+// resume
+// contact
+// description
+
+// div.bento {
+//   display: grid;
+//   box-sizing: border-box;
+//   width: 100%;
+//   // height: 100vh;
+//   // max-width: 1200px;
+//   // height: 1000px;
+//   display: grid;
+//   gap: 1.5vw;
+//   padding: 1vw;
+//   grid-template-columns: repeat(6, 1fr);
+//   grid-template-rows: auto;
+//   grid-template-areas:
+//     "headshot clock clock clock github linkedin"
+//     "contact contact intro intro intro description"
+//     "contact contact intro intro intro description"
+//     "contact contact scroll scroll resume resume";
+// }
+
+// div.bento-item {
+//   box-sizing: border-box;
+//   position: relative;
+//   z-index: 1;
+//   margin: 0 auto;
+//   border-radius: 50px;
+//   box-shadow:
+//     0px 0px 0px var(--primary),
+//     0px 0px 0px var(--primary-shadow);
+//   display: flex;
+//   flex-flow: column;
+//   align-items: center;
+//   justify-content: center;
+//   width: 100%;
+// }
+
+div.intro {
+  // grid-area: intro;
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 50px;
+  // box-shadow:
+  //   20px 20px 40px var(--primary),
+  //   -20px -20px 40px var(--primary-shadow);
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    font-size: 3cqh;
+  }
+
+  .intro-header-name {
+    display: flex;
+    span {
+      flex: 1;
+    }
+    .emoji {
+      margin-left: 1rem;
+    }
+  }
+
+  .intro-header-headshot {
+    img {
+      max-width: 100px;
+      border-radius: 100%;
+      padding: 3rem;
+    }
+  }
+}
+
+div.intro-buttons {
+  position: relative;
+  z-index: 1;
+  margin: 4rem auto 0;
+  padding: 2rem;
+  border-radius: 50px;
+  // box-shadow:
+  //   20px 20px 40px var(--primary),
+  //   -20px -20px 40px var(--primary-shadow);
+  display: flex;
+  // flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  div.button-container {
+    box-sizing: border-box;
+    width: 85px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+
+    border-radius: 50px;
+    background: linear-gradient(145deg, #17212d, #1c2836);
+    box-shadow:
+      20px 20px 60px #0a0f14,
+      -20px -20px 60px #2a3b50;
+
+    &.github img {
+      max-width: 48px;
+    }
+
+    &.linkedin img {
+      max-width: 50px;
+    }
+
+    &.email {
+      font-size: 50px;
+    }
+
+    // transition: box-shadow 3s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+// .intro-description p {
+//   line-height: 1.4;
+//   /*width: 100%;*/
+//   max-width: 725px;
+//   // font-size: 1.75rem;
+//   color: silver;
+//   // margin: 1rem 0 1rem 3rem;
+// }
+
+// div.headshot {
+//   grid-area: headshot;
+//   border-radius: 100%;
+//   padding: 3rem;
+//   align-self: center;
+// }
+
+// div.clock {
+//   grid-area: clock;
+// }
+
+// div.github {
+//   grid-area: github;
+// }
+
+// div.linkedin {
+//   grid-area: linkedin;
+// }
+
+// div.resume {
+//   grid-area: resume;
+// }
+
+// div.contact {
+//   grid-area: contact;
+//   ul {
+//     padding: 0;
+//   }
+//   ul li {
+//     list-style-type: none;
+//   }
+// }
+
+// div.hello {
+//   grid-area: hello;
+// }
+
+// div.scroll {
+//   grid-area: scroll;
+// }
+
+// .code {
+//   font-family: "Source Code Pro", monospace;
+//   // font-size: 1.75rem;
+// }
+
+// .line {
+//   width: 100%;
+//   max-width: 800px;
+//   height: 8px;
+//   margin: 0 0 10px 0;
+//   position: relative;
+//   display: inline-block;
+//   background-color: rgba(255, 255, 255, 1);
+// }
