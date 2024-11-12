@@ -125,6 +125,11 @@ div.intro-buttons {
       20px 20px 60px #0a0f14,
       -20px -20px 60px #2a3b50;
 
+    a,
+    a:visited {
+      text-decoration: none;
+    }
+
     &.github img {
       max-width: 48px;
     }
@@ -135,6 +140,11 @@ div.intro-buttons {
 
     &.email {
       font-size: 50px;
+    }
+
+    &.resume img {
+      max-width: 45px;
+      border-radius: 3px;
     }
 
     // transition: box-shadow 3s ease-in-out;

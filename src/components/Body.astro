@@ -1,9 +1,9 @@
 ---
-import { CodeBlock } from "./CodeBlock";
 import "../styles/_body.scss";
+const date = Date.now() - new Date("2016-12-01").getTime();
 ---
 
-<div class="panel">
+<section class="panel" id="introPanel">
   <div class="intro">
     <h1 class="intro-header" style={{ color: "#0099cc" }}>
       <div class="intro-header-hi">
@@ -24,18 +24,18 @@ import "../styles/_body.scss";
     <div class="button-container linkedin">
       <img src="/linkedin.svg" alt="" />
     </div>
-    <div class="button-container email">💌</div>
-    <!-- <div class="button-container">resume</div> -->
+    <div class="button-container email">
+      <a href="mailto:rsparkhomenko@gmail.com">💌</a>
+    </div>
+    <div class="button-container resume"><img src="/resume.svg" alt="" /></div>
   </div>
-</div>
+</section>
 
-<!-- <section class="panel red">
+<!-- <section class="panel about">
+  <h2>About</h2>
   <p>
-    <span class="line line-1"></span>This line's animation will begin when it
-    enters the viewport and finish when its top edge hits the top of the
-    viewport, staying perfectly in sync with the scrollbar because it has <code
-      >scrub:&nbsp;true</code
-    >
+    Hey! I'm Roman. I'm a software engineer specializing in front-end web
+    technologies.
   </p>
 </section> -->
 
@@ -44,14 +44,12 @@ import "../styles/_body.scss";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   gsap.registerPlugin(ScrollTrigger);
-
   gsap.defaults({
     ease: "power2.in",
     duration: 0.5,
   });
 
   const buttonsToHover = document.querySelectorAll(".button-container");
-
   buttonsToHover.forEach((button) => {
     let hoverAnimation = gsap.to(button, {
       paused: true,
@@ -98,7 +96,8 @@ import "../styles/_body.scss";
       boxShadow: "20px -20px 40px #10171f, -20px 20px 40px #243346",
       // boxShadow: "13px 13px 35px #0e141c, -13px -13px 35px #263649",
       // duration: 0.5,
-    }
+    },
+    "=-0.5"
   );
   tl.fromTo(
     ".button-container",
@@ -115,7 +114,7 @@ import "../styles/_body.scss";
       background: "linear-gradient(145deg, #1c2836, #17212d)",
       boxShadow: "20px 20px 60px #0f151d, -20px -20px 60px #253547",
       // boxShadow: "20px 20px 60px #0a0f14, -20px -20px 60px #2a3b50",
-      stagger: 0.25,
+      stagger: 0.1,
     }
   );
   tl.to(".button-container", {
@@ -125,7 +124,7 @@ import "../styles/_body.scss";
     background: "linear-gradient(145deg, #1c2836, #17212d)",
     boxShadow: "6px 6px 9px #111821, -6px -6px 9px #233244",
     // boxShadow: "20px 20px 60px #0a0f14, -20px -20px 60px #2a3b50",
-    stagger: 0.25,
+    stagger: 0.1,
   });
   // tl.to(".emoji")
 

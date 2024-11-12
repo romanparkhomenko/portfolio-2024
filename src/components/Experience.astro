@@ -1,0 +1,116 @@
+---
+import "../styles/_experience.scss";
+const date = Date.now() - new Date("2016-12-01").getTime();
+---
+
+<section class="panel experience" id="experiencePanel">
+  <h2 id="experienceHeader">Experience</h2>
+  <p>
+    I've been fortunate enough to develop my career working work with some
+    amazing companies and teams over the years.
+  </p>
+  <svg id="motionPath" viewBox="-20 0 557 190">
+    <path
+      id="path"
+      fill="none"
+      d="M-18.561,100.784 C-5.442,78.629 25.435,148.546 98.428,147.546 173.427,147.546 154.956,200.11 211.626,174.147 254.686,154.419 372.696,212.598 402.173,173.456 420.761,148.773 500.914,188.713 502.121,154.637"
+    ></path>
+  </svg>
+  <div class="rocket">🚀</div>
+  <div class="job">
+    <h3>AudiencePlus - Lead Engineer</h3>
+    <ul>
+      <li>Architected the entire frontend.</li>
+      <li>
+        Developed a rendering engine and customization pipeline for multimodal
+        content.
+      </li>
+      <li>
+        Built a custom CMS and analytics engine for managing content creation
+        and consumption.
+      </li>
+      <li>
+        Guided technical contract and offshore teams to ensure proper
+        implementation.
+      </li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <h3>Physna / Thangs</h3>
+    <ul>
+      <li>Assisted in the rearchitecture of a legacy enterprise product.</li>
+      <li>Developed a workflow feature for 3D model version control.</li>
+      <li>Led initiative to migrate legacy Javascript code into Typescript.</li>
+      <li>Got pretty decent at 3D printing!</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <h3>BombBomb</h3>
+    <ul>
+      <li>
+        Architected access level infrastructure for rapid feature set management
+        across products.
+      </li>
+      <li>
+        Managed permutational growth loop experiments across several systems to
+        increase product conversion and usage.
+      </li>
+      <li>
+        Consolidated RESTful API endpoints, increased test coverage, and
+        centralized process for flexible billing scenarios.
+      </li>
+      <li>
+        Maintained billing system responsible for over 1M successful
+        transactions annually.
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- <section class="panel about">
+  <h2>About</h2>
+  <p>
+    Hey! I'm Roman. I'm a software engineer specializing in front-end web
+    technologies.
+  </p>
+</section> -->
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { MotionPathPlugin } from "gsap/all";
+  gsap.registerPlugin(MotionPathPlugin);
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.defaults({
+    ease: "power2.in",
+    duration: 0.5,
+  });
+
+  let tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#experiencePanel",
+      pin: true, // pin the trigger element while active
+      start: "top top", // when the top of the trigger hits the top of the viewport
+      end: "+=1000", // end after scrolling 500px beyond the start
+      scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+    },
+  });
+  tl.from("#experienceHeader", {
+    opacity: 0,
+    y: 100,
+  });
+  tl.to(".rocket", {
+    duration: 5,
+    ease: "power1.inOut",
+    immediateRender: true,
+    motionPath: {
+      path: "#path",
+      align: "#path",
+      alignOrigin: [0.0, 1.0],
+      autoRotate: 360,
+    },
+  });
+</script>
