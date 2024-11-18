@@ -1,0 +1,84 @@
+---
+import "../styles/_about.scss";
+import { Years } from "./Years";
+---
+
+<section class="about-panel" id="aboutPanel">
+  <div class="bio-blocks">
+    <div class="bio-block bio-container">
+      <p class="label">Bio</p>
+      <p>
+        I'm a senior full-stack engineer specializing in frontend technologies.
+      </p>
+      <p>
+        I've been working in the industry for nearly a decade, and have had the
+        opportunity to work on a variety of projects. I've worked on everything
+        from small websites to large-scale applications, and I've had the chance
+        to work with some amazing people along the way.
+      </p>
+    </div>
+
+    <div class="bio-block xp-container">
+      <p class="label">Experience</p>
+      <Years client:load />
+    </div>
+
+    <div class="bio-block location-container">
+      <p class="label">Location</p>
+      <p>Colorado Springs, CO</p>
+    </div>
+
+    <div class="bio-block degree-container">
+      <p class="label">Degree</p>
+      <p>Bachelor of Science in Computer Science</p>
+    </div>
+  </div>
+
+  <div class="tech-stack">
+    <p class="label">My Tech Stack</p>
+    <div class="tech-stack-icons">
+      <img src="/tech/typescript.svg" alt="Typescript" />
+      <img src="/tech/javascript.svg" alt="Javascript" />
+      <img src="/tech/html5.svg" alt="HTML5" />
+      <img src="/tech/css3.svg" alt="CSS3" />
+      <img src="/tech/react.svg" alt="React" />
+      <img src="/tech/node.svg" alt="Node.js" />
+      <img src="/tech/nextjs.svg" alt="Next.js" />
+      <img src="/tech/php.svg" alt="PHP" />
+      <img src="/tech/python.svg" alt="Python" />
+      <img src="/tech/cypress.svg" alt="Cypress" />
+      <img src="/tech/mysql.svg" alt="MySQL" />
+      <img src="/tech/sass.svg" alt="Sass" />
+      <img src="/tech/docker.svg" alt="Docker" />
+      <img src="/tech/figma.svg" alt="Figma" />
+      <img src="/tech/astro.svg" alt="Astro" />
+      <img src="/tech/aws.svg" alt="AWS" />
+      <img src="/tech/gcloud.svg" alt="gcloud" />
+      <img src="/tech/csharp.svg" alt="CSharp" />
+      <img src="/tech/cpp.svg" alt="CPP" />
+    </div>
+
+    <!-- <script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { MotionPathPlugin } from "gsap/all";
+  gsap.registerPlugin(MotionPathPlugin);
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.defaults({
+    ease: "power2.in",
+    duration: 0.5,
+  });
+
+  let t3 = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#aboutPanel",
+      toggleActions: "play none none none",
+      pin: true,
+      start: "top top",
+      end: "+=2000",
+    },
+  });
+</script> -->
+  </div>
+</section>

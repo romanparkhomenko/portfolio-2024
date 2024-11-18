@@ -1,4 +1,5 @@
 ---
+import "../styles/_main.scss";
 import "./normalize.scss";
 interface Props {
   title: string;
@@ -26,26 +27,3 @@ const { title } = Astro.props;
     <slot />
   </body>
 </html>
-<style lang="scss">
-  @import url("https://fonts.googleapis.com/css?family=Poppins|Source+Code+Pro&display=swap");
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  html {
-    background-color: #1f2b3b !important;
-    color: #fff !important;
-    font-family: "Poppins", sans-serif !important;
-  }
-
-  body {
-    background-color: #1f2b3b !important;
-    color: #fff !important;
-    // background-color: #e0e0e0;
-    font-size: 16px !important;
-    font-family: "Poppins", sans-serif !important;
-  }
-</style>

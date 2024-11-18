@@ -1,13 +1,267 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { Main } from "../components/Main";
+// import { Main } from "../components/Main";
 // import { CodeBlock } from "../components/CodeBlock";
 // import Intro from "../components/Intro.astro";
-import Body from "../components/Body.astro";
+import "../styles/_intro.scss";
+// const date = Date.now() - new Date("2016-12-01").getTime();
+// import Body from "../components/Body.astro";
 import Experience from "../components/Experience.astro";
+import About from "../components/About.astro";
 ---
 
 <Layout title="Roman Parkhomenko | Software Engineer">
-  <Body />
-  <Experience />
+  <div class="canvas-container"></div>
+  <main>
+    <section class="panel" id="introPanel">
+      <div class="intro">
+        <h1 class="intro-header" style={{ color: "#0099cc" }}>
+          <div class="intro-header-hi">
+            <!-- <span>{"//"}</span> -->
+            <span style={{ color: "white" }}> Hello, I'm</span>
+          </div>
+          <div class="intro-header-name">
+            <span>Roman Parkhomenko.</span>
+            <div class="emoji">👋</div>
+          </div>
+        </h1>
+      </div>
+
+      <div class="intro-buttons">
+        <div class="button-container github">
+          <img src="/github.svg" alt="" />
+        </div>
+        <div class="button-container linkedin">
+          <img src="/linkedin.svg" alt="" />
+        </div>
+        <div class="button-container email">
+          <a href="mailto:rsparkhomenko@gmail.com">💌</a>
+        </div>
+        <div class="button-container resume">
+          <img src="/resume.svg" alt="" />
+        </div>
+      </div>
+    </section>
+
+    <About />
+
+    <Experience />
+  </main>
 </Layout>
+
+<script>
+  import * as THREE from "three";
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.defaults({
+    ease: "power2.in",
+    duration: 0.5,
+  });
+
+  const container = document.querySelector(".canvas-container") as HTMLElement;
+  function getHeight() {
+    return container.offsetHeight;
+  }
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / getHeight(),
+    0.1,
+    2000
+  );
+  const renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, getHeight());
+  renderer.setAnimationLoop(animate);
+  container.appendChild(renderer.domElement);
+
+  const geometry = new THREE.BoxGeometry(1, 1, 1);
+  const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
+
+  camera.position.z = 5;
+
+  function animate() {
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+
+    renderer.render(scene, camera);
+  }
+
+  const buttonsToHover = document.querySelectorAll(".button-container");
+  buttonsToHover.forEach((button) => {
+    let hoverAnimation = gsap.to(button, {
+      paused: true,
+      boxShadow: "inset 6px 6px 9px #111821, inset -6px -6px 9px #233244",
+      duration: 0.1,
+    });
+    button.addEventListener("mouseenter", () => hoverAnimation.play());
+    button.addEventListener("mouseleave", () => hoverAnimation.reverse());
+  });
+
+  let tl = gsap.timeline();
+  tl.from(".intro-header-hi", { opacity: 0, y: 100 });
+  tl.from(".intro-header-name", { opacity: 0, y: 100 });
+  tl.fromTo(
+    ".intro",
+    {
+      boxShadow:
+        "0px 0px 0px var(--primary), 0px 0px 0px var(--primary-shadow)",
+    },
+    {
+      // boxShadow:
+      //   "20px 20px 40px var(--primary), -20px -20px 40px var(--primary-shadow)",
+      boxShadow: "20px 20px 40px #121a24, -20px -20px 40px #223041",
+      // duration: 0.5,
+    }
+  );
+  tl.from(".emoji", { autoAlpha: 0, width: 0, duration: 0.75 });
+  tl.from(".emoji", {
+    // scale: 1.5,
+    rotate: 50,
+    duration: 0.1,
+    yoyo: true,
+    repeat: 10,
+  });
+  tl.fromTo(
+    ".intro-buttons",
+    {
+      boxShadow:
+        "0px 0px 0px var(--primary), 0px 0px 0px var(--primary-shadow)",
+    },
+    {
+      // boxShadow:
+      // "10px 10px 30px var(--primary), -10px -10px 30px var(--primary-shadow)",
+      boxShadow: "20px -20px 40px #10171f, -20px 20px 40px #243346",
+      // boxShadow: "13px 13px 35px #0e141c, -13px -13px 35px #263649",
+      // duration: 0.5,
+    },
+    "=-0.5"
+  );
+  tl.fromTo(
+    ".button-container",
+    {
+      autoAlpha: 0,
+      y: 100,
+      background: "var(--primary)",
+      boxShadow: "0px 0px 0px #0a0f14, 0px 0px 0px #2a3b50",
+    },
+    {
+      autoAlpha: 1,
+      y: 0,
+      // boxShadow: "20px 20px 60px #0a0f14, -20px -20px 60px #2a3b50",
+      background: "linear-gradient(145deg, #1c2836, #17212d)",
+      boxShadow: "20px 20px 60px #0f151d, -20px -20px 60px #253547",
+      // boxShadow: "20px 20px 60px #0a0f14, -20px -20px 60px #2a3b50",
+      stagger: 0.1,
+    }
+  );
+  tl.to(".button-container", {
+    autoAlpha: 1,
+    y: 0,
+    // boxShadow: "20px 20px 60px #0a0f14, -20px -20px 60px #2a3b50",
+    background: "linear-gradient(145deg, #1c2836, #17212d)",
+    boxShadow: "6px 6px 9px #111821, -6px -6px 9px #233244",
+    // boxShadow: "20px 20px 60px #0a0f14, -20px -20px 60px #2a3b50",
+    stagger: 0.1,
+  });
+  // tl.to(".emoji")
+
+  // gsap.to(".intro", {
+  //   boxShadow:
+  //     "20px 20px 40px var(--primary), -20px -20px 40px var(--primary-shadow)",
+  //   // boxShadow: "20px 20px 40px #bebebe, -20px -20px 40px #ffffff",
+  //   addClass: "pop",
+  //   duration: 5,
+  //   ease: "power2",
+  // });
+
+  // gsap.to(".headshot", {
+  //   boxShadow:
+  //     "inset 5px 5px 10px var(--primary), inset -5px -5px 10px var(--primary-shadow)",
+  //   // boxShadow: "inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff",
+  //   duration: 4,
+  //   delay: 1,
+  //   ease: "power1.out",
+  // });
+
+  // --- RED PANEL ---
+  // gsap.from(".line-1", {
+  //   scrollTrigger: {
+  //     trigger: ".line-1",
+  //     scrub: true,
+  //     start: "top bottom",
+  //     end: "top top",
+  //   },
+  //   scaleX: 0,
+  //   transformOrigin: "left center",
+  //   ease: "none",
+  // });
+
+  // // --- ORANGE PANEL ---
+  // gsap.from(".line-2", {
+  //   scrollTrigger: {
+  //     trigger: ".orange",
+  //     scrub: true,
+  //     pin: true,
+  //     start: "top top",
+  //     end: "+=100%",
+  //   },
+  //   scaleX: 0,
+  //   transformOrigin: "left center",
+  //   ease: "none",
+  // });
+
+  // --- PURPLE/GREEN PANEL ---
+  // var tl = gsap.timeline({
+  //   scrollTrigger: {
+  //     trigger: ".purple",
+  //     scrub: true,
+  //     pin: true,
+  //     start: "top top",
+  //     end: "+=100%",
+  //   },
+  // });
+
+  // tl.from(".purple p", {
+  //   scale: 0.3,
+  //   rotation: 45,
+  //   autoAlpha: 0,
+  //   ease: "power2",
+  // })
+  //   .from(
+  //     ".line-3",
+  //     { scaleX: 0, transformOrigin: "left center", ease: "none" },
+  //     0
+  //   )
+  //   .to(".purple", { backgroundColor: "#28a92b" }, 0);
+
+  // possible solution for old iOS bugs that don't display things inside an iframe correctly. Create a --full-height CSS variable and use it instead of height: 100%
+  // function readHeight() {
+  // 		if (ScrollTrigger.isScrolling()) {
+  // 			console.log("wait until end...");
+  // 			ScrollTrigger.addEventListener("scrollEnd", readHeight);
+  // 		} else {
+  // 			ScrollTrigger.removeEventListener("scrollEnd", readHeight);
+  // 			window.removeEventListener("resize", readHeight);
+  // 			let scrollFunc = ScrollTrigger.getScrollFunc(window),
+  // 				scrollProgress = scrollFunc() / ScrollTrigger.maxScroll(window),
+  // 				docStyle = document.documentElement.style,
+  // 				bodyStyle = document.body.style;
+  // 			bodyStyle.overflow = "auto";
+  // 			docStyle.setProperty("--full-height", "100%");
+  // 			docStyle.setProperty("--full-height", window.innerHeight + "px");
+  // 			bodyStyle.overflow = "unset";
+  // 			setTimeout(function() {
+  // 				window.addEventListener("resize", readHeight);
+  // 			}, 500);
+  // 			ScrollTrigger.refresh(true);
+  // 			scrollFunc(scrollProgress * ScrollTrigger.maxScroll(window));
+  // 		}
+  // 	}
+
+  // 💚 Happy tweening!
+</script>
