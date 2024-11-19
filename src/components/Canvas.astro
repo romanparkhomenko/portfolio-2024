@@ -1,0 +1,150 @@
+<div class="canvas-container"></div>
+
+<script>
+  import * as THREE from "three";
+  import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+  import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+  import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
+
+  import { RGBShiftShader } from "three/addons/shaders/RGBShiftShader.js";
+  import { DotScreenShader } from "three/addons/shaders/DotScreenShader.js";
+  import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+
+  // Declare variables
+  let camera: THREE.PerspectiveCamera;
+  let scene: THREE.Scene;
+  let renderer: THREE.WebGLRenderer;
+  let container: HTMLElement;
+  let object: THREE.Object3D;
+  let composer: EffectComposer;
+  let cube: THREE.Mesh;
+  let line: THREE.LineSegments;
+  let mouseX = 0;
+  let mouseY = 0;
+  let windowHalfX = 0;
+  let windowHalfY = 0;
+
+  const onDocumentMouseMove = (event: MouseEvent) => {
+    mouseX = event.clientX - windowHalfX;
+    mouseY = event.clientY - windowHalfY;
+  };
+
+  const getHeight = () => {
+    return container.offsetHeight;
+  };
+
+  const init = () => {
+    container = document.querySelector(".canvas-container") as HTMLElement;
+    windowHalfX = window.innerWidth / 2;
+    windowHalfY = getHeight() / 2;
+
+    camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / getHeight(),
+      0.1,
+      1000
+    );
+    camera.position.z = 400;
+
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color("#1a2532");
+    scene.fog = new THREE.Fog("#1a2532", 1, 1000);
+
+    object = new THREE.Object3D();
+    scene.add(object);
+
+    const geometry = new THREE.SphereGeometry(1, 4, 4);
+    const material = new THREE.MeshPhongMaterial({
+      color: 0xffffff,
+      flatShading: true,
+    });
+
+    // const material = new THREE.MeshPhongMaterial({
+    //   color: "#243144",
+    //   flatShading: true,
+    // });
+
+    for (let i = 0; i < 100; i++) {
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.position
+        .set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5)
+        .normalize();
+      mesh.position.multiplyScalar(Math.random() * 400);
+      mesh.rotation.set(
+        Math.random() * 2,
+        Math.random() * 2,
+        Math.random() * 2
+      );
+      mesh.scale.x = mesh.scale.y = mesh.scale.z = Math.random() * 50;
+      object.add(mesh);
+    }
+
+    scene.add(new THREE.AmbientLight("#243144", 1));
+    // scene.add(new THREE.AmbientLight(0xcccccc));
+
+    const light = new THREE.DirectionalLight("#1a2532", 10);
+    light.position.set(1, 1, 1);
+    scene.add(light);
+
+    // const light = new THREE.DirectionalLight("#ffffff", 1);
+    // light.position.set(0, 0, 1);
+    // scene.add(light);
+
+    // GEOMETRY
+    // const geometry = new THREE.BoxGeometry(1, 1, 1);
+    // const edges = new THREE.EdgesGeometry(geometry);
+    // const line = new THREE.LineSegments(
+    //   edges,
+    //   new THREE.LineBasicMaterial({ color: "#ff6600" })
+    // );
+    // const material = new THREE.MeshBasicMaterial({ color: "#243144" });
+    // const cube = new THREE.Mesh(geometry, material);
+    // scene.add(cube);
+    // scene.add(line);
+
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, getHeight());
+
+    const animate = () => {
+      // object.rotation.x += 0.005;
+      // object.rotation.y += 0.01;
+
+      composer.render();
+      // line.rotation.x += 0.01;
+      // line.rotation.y += 0.01;
+      // cube.rotation.x += 0.01;
+      // cube.rotation.y += 0.01;
+
+      camera.position.x += (mouseX - camera.position.x) * 0.005;
+      camera.position.y += (-mouseY - camera.position.y) * 0.005;
+
+      camera.lookAt(scene.position);
+
+      // renderer.render(scene, camera);
+    };
+
+    renderer.setAnimationLoop(animate);
+    container.appendChild(renderer.domElement);
+
+    // postprocessing
+
+    composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene, camera));
+
+    // const effect1 = new ShaderPass(DotScreenShader);
+    // effect1.uniforms["scale"].value = 4;
+    // composer.addPass(effect1);
+
+    // const effect2 = new ShaderPass(RGBShiftShader);
+    // effect2.uniforms["amount"].value = 0.0015;
+    // composer.addPass(effect2);
+
+    // const effect3 = new OutputPass();
+    // composer.addPass(effect3);
+
+    document.addEventListener("mousemove", onDocumentMouseMove);
+  };
+
+  init();
+</script>
