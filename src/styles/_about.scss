@@ -1,6 +1,8 @@
+@use "./_variables.scss";
+
 section.about-panel {
   display: flex;
-  // flex-direction: column;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -10,10 +12,33 @@ section.about-panel {
   box-sizing: border-box;
 }
 
+div.about-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 1200px;
+  width: 100%;
+  padding: 1rem;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+
+    div.tech-stack {
+      flex: 1 0 50%;
+    }
+
+    div.bio-blocks {
+      flex: 1 0 50%;
+    }
+  }
+}
+
 div.tech-stack {
   flex: 1 0 30%;
   display: flex;
   flex-flow: column;
+  aspect-ratio: 1 / 2;
+  padding: 1rem;
   p.label {
     min-width: 100px;
     text-transform: uppercase;
@@ -24,13 +49,28 @@ div.tech-stack {
   .tech-stack-icons {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    // gap: 1rem;
     justify-content: center;
-    align-items: center;
+    // align-items: flex-end;
     width: 100%;
-    img {
-      width: 50px;
-      height: 50px;
+    height: 100%;
+    position: relative;
+  }
+
+  img.tech-icon {
+    // visibility: hidden;
+    // position: absolute;
+    width: 30%;
+    height: 50px;
+    // width: 100%;
+    // max-width: 50px;
+    // object-fit: contain;
+    display: block;
+    transition: all 500ms;
+    filter: grayscale(100%);
+    &:hover {
+      transition: all 500ms;
+      filter: grayscale(0%);
     }
   }
 }
@@ -53,10 +93,35 @@ div.bio-block {
   // margin-bottom: 2rem;
   width: 100%;
   padding: 1rem;
+  border-radius: 16px 50px 50px;
+  box-shadow:
+    20px 20px 40px var(--primary),
+    -20px -20px 40px var(--primary-shadow);
   p.label {
     min-width: 100px;
     text-transform: uppercase;
     font-size: 0.8rem;
     margin-bottom: 1.5rem;
+  }
+}
+
+.dateBlock {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  p {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    span {
+      display: block;
+      font-size: 0.75rem;
+    }
+  }
+
+  .yearsBlock {
+    font-size: 6rem;
   }
 }

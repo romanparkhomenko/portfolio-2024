@@ -73,13 +73,31 @@ export const Years = () => {
   }, []);
 
   return (
-    <div>
-      <p>{dateObject.years} years</p>
-      <p>{dateObject.months} months</p>
-      <p>{dateObject.days} days</p>
-      <p>{dateObject.hours} hours</p>
-      <p>{dateObject.minutes} minutes</p>
-      <p>{dateObject.seconds} seconds</p>
+    <div className="dateBlock">
+      <p className="yearsBlock">
+        {dateObject.years}
+        <span>years</span>
+      </p>
+      <p className="monthsBlock">
+        {dateObject.months}
+        <span>months</span>
+      </p>
+      <p className="daysBlock">
+        {dateObject.days}
+        <span>days</span>
+      </p>
+      <p className="hoursBlock">
+        {dateObject.hours}
+        <span>hours</span>
+      </p>
+      <p className="minutesBlock">
+        {dateObject.minutes}
+        <span>minutes</span>
+      </p>
+      <p className="secondsBlock">
+        {dateObject.seconds}
+        <span>seconds</span>
+      </p>
     </div>
   );
 };

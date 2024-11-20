@@ -80,10 +80,10 @@
     }
 
     scene.add(new THREE.AmbientLight("#243144", 1));
-    // scene.add(new THREE.AmbientLight(0xcccccc));
+    // scene.add(new THREE.AmbientLight("#cccccc", 1));
 
-    const light = new THREE.DirectionalLight("#1a2532", 10);
-    light.position.set(1, 1, 1);
+    const light = new THREE.DirectionalLight("#1a2532", 1);
+    light.position.set(0, 0, 0);
     scene.add(light);
 
     // const light = new THREE.DirectionalLight("#ffffff", 1);
@@ -107,8 +107,16 @@
     renderer.setSize(window.innerWidth, getHeight());
 
     const animate = () => {
-      // object.rotation.x += 0.005;
-      // object.rotation.y += 0.01;
+      object.rotation.x += 0.001;
+      object.rotation.y += 0.001;
+
+      // light.position.set(
+      //   (mouseX - camera.position.x) * 0.005,
+      //   (-mouseY - camera.position.y) * 0.005,
+      //   1
+      // );
+
+      light.position.set(-mouseX * 0.001, mouseY * 0.001, 1);
 
       composer.render();
       // line.rotation.x += 0.01;
@@ -116,10 +124,10 @@
       // cube.rotation.x += 0.01;
       // cube.rotation.y += 0.01;
 
-      camera.position.x += (mouseX - camera.position.x) * 0.005;
-      camera.position.y += (-mouseY - camera.position.y) * 0.005;
+      // camera.position.x += (mouseX - camera.position.x) * 0.005;
+      // camera.position.y += (-mouseY - camera.position.y) * 0.005;
 
-      camera.lookAt(scene.position);
+      // camera.lookAt(scene.position);
 
       // renderer.render(scene, camera);
     };
@@ -140,8 +148,8 @@
     // effect2.uniforms["amount"].value = 0.0015;
     // composer.addPass(effect2);
 
-    // const effect3 = new OutputPass();
-    // composer.addPass(effect3);
+    const effect3 = new OutputPass();
+    composer.addPass(effect3);
 
     document.addEventListener("mousemove", onDocumentMouseMove);
   };

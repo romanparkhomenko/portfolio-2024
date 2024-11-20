@@ -4,81 +4,146 @@ import { Years } from "./Years";
 ---
 
 <section class="about-panel" id="aboutPanel">
-  <div class="bio-blocks">
-    <div class="bio-block bio-container">
-      <p class="label">Bio</p>
-      <p>
-        I'm a senior full-stack engineer specializing in frontend technologies.
-      </p>
-      <p>
-        I've been working in the industry for nearly a decade, and have had the
-        opportunity to work on a variety of projects. I've worked on everything
-        from small websites to large-scale applications, and I've had the chance
-        to work with some amazing people along the way.
-      </p>
+  <div class="about-container">
+    <div class="bio-blocks">
+      <div class="bio-block bio-container">
+        <p class="label">Bio</p>
+        <div class="bio-content">
+          <p style="margin-bottom: 2rem;">
+            I'm a senior full-stack engineer specializing in frontend
+            technologies.
+          </p>
+          <p>
+            I've been working in the industry for nearly a decade, and have had
+            the opportunity to work on a variety of projects. I've worked on
+            everything from small websites to large-scale applications, and I've
+            had the chance to work with some amazing people along the way.
+          </p>
+        </div>
+      </div>
+
+      <div class="bio-block xp-container">
+        <p class="label">Experience</p>
+        <div class="bio-content">
+          <Years client:load />
+        </div>
+      </div>
+
+      <div class="bio-block location-container">
+        <p class="label">Location</p>
+        <div class="bio-content">
+          <p>Colorado Springs, CO</p>
+        </div>
+      </div>
+
+      <div class="bio-block degree-container">
+        <p class="label">Degree</p>
+        <div class="bio-content">
+          <p>Bachelor of Science in Computer Science</p>
+        </div>
+      </div>
     </div>
 
-    <div class="bio-block xp-container">
-      <p class="label">Experience</p>
-      <Years client:load />
+    <div class="tech-stack">
+      <p class="label">My Tech Stack</p>
+      <div class="tech-stack-icons">
+        <img class="tech-icon" src="/tech/typescript.svg" alt="Typescript" />
+        <img class="tech-icon" src="/tech/javascript.svg" alt="Javascript" />
+        <img class="tech-icon" src="/tech/html5.svg" alt="HTML5" />
+        <img class="tech-icon" src="/tech/css3.svg" alt="CSS3" />
+        <img class="tech-icon" src="/tech/react.svg" alt="React" />
+        <img class="tech-icon" src="/tech/redux.svg" alt="Redux" />
+        <img class="tech-icon" src="/tech/node.svg" alt="Node.js" />
+        <img class="tech-icon" src="/tech/nextjs.svg" alt="Next.js" />
+        <img class="tech-icon" src="/tech/php.svg" alt="PHP" />
+        <img class="tech-icon" src="/tech/python.svg" alt="Python" />
+        <img class="tech-icon" src="/tech/cypress.svg" alt="Cypress" />
+        <img class="tech-icon" src="/tech/mysql.svg" alt="MySQL" />
+        <img class="tech-icon" src="/tech/sass.svg" alt="Sass" />
+        <img class="tech-icon" src="/tech/docker.svg" alt="Docker" />
+        <img class="tech-icon" src="/tech/git.svg" alt="Git" />
+        <img class="tech-icon" src="/tech/figma.svg" alt="Figma" />
+        <img class="tech-icon" src="/tech/astro.svg" alt="Astro" />
+        <img class="tech-icon" src="/tech/aws.svg" alt="AWS" />
+        <img class="tech-icon" src="/tech/gcloud.svg" alt="gcloud" />
+        <img class="tech-icon" src="/tech/csharp.svg" alt="CSharp" />
+        <img class="tech-icon" src="/tech/cpp.svg" alt="CPP" />
+      </div>
+
+      <script>
+        import gsap from "gsap";
+        import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.defaults({
+          ease: "power2.in",
+          duration: 0.5,
+        });
+
+        let t3 = gsap.timeline({
+          scrollTrigger: {
+            trigger: "#aboutPanel",
+            toggleActions: "play none none none",
+            // pin: true,
+            start: "top top",
+            end: "+=2000",
+          },
+        });
+
+        // Get Icon Container
+        const iconContainer = document.querySelector(
+          ".tech-stack-icons"
+        ) as HTMLElement;
+        // Get Icons
+        const icons = document.querySelectorAll(".tech-icon");
+
+        if (iconContainer && icons) {
+          const iconContainerWidth = iconContainer.offsetWidth;
+          const iconContainerHeight = iconContainer.offsetHeight;
+          const columnCount = 3;
+          const rowCount = 7;
+          const iconWidth = iconContainerWidth / columnCount;
+          const iconHeight = iconContainerHeight / rowCount;
+          const iconSize = Math.min(iconWidth, iconHeight);
+
+          t3.fromTo(
+            icons,
+            {
+              autoAlpha: 0,
+              y: -500,
+            },
+            {
+              autoAlpha: 1,
+              // x: 0,
+              y: 0,
+              width: (index, target, targets) => {
+                const value =
+                  iconSize * ((icons.length - index) / icons.length);
+                return gsap.utils.clamp(iconSize - 10, iconSize * 3, value);
+              },
+              height: (index, target, targets) => {
+                const value =
+                  iconSize * ((icons.length - index) / icons.length);
+                return gsap.utils.clamp(iconSize - 10, iconSize * 3, value);
+              },
+              rotate: () => {
+                return gsap.utils.random(-20, 20, 1);
+              },
+              skewX: () => {
+                return gsap.utils.random(-1, 1, 1);
+              },
+              ease: "bounce.out",
+              duration: 0.1,
+              stagger: {
+                each: 0.05,
+                from: "end",
+                ease: "bounce.in",
+              },
+            }
+          );
+        }
+      </script>
     </div>
-
-    <div class="bio-block location-container">
-      <p class="label">Location</p>
-      <p>Colorado Springs, CO</p>
-    </div>
-
-    <div class="bio-block degree-container">
-      <p class="label">Degree</p>
-      <p>Bachelor of Science in Computer Science</p>
-    </div>
-  </div>
-
-  <div class="tech-stack">
-    <p class="label">My Tech Stack</p>
-    <div class="tech-stack-icons">
-      <img src="/tech/typescript.svg" alt="Typescript" />
-      <img src="/tech/javascript.svg" alt="Javascript" />
-      <img src="/tech/html5.svg" alt="HTML5" />
-      <img src="/tech/css3.svg" alt="CSS3" />
-      <img src="/tech/react.svg" alt="React" />
-      <img src="/tech/node.svg" alt="Node.js" />
-      <img src="/tech/nextjs.svg" alt="Next.js" />
-      <img src="/tech/php.svg" alt="PHP" />
-      <img src="/tech/python.svg" alt="Python" />
-      <img src="/tech/cypress.svg" alt="Cypress" />
-      <img src="/tech/mysql.svg" alt="MySQL" />
-      <img src="/tech/sass.svg" alt="Sass" />
-      <img src="/tech/docker.svg" alt="Docker" />
-      <img src="/tech/figma.svg" alt="Figma" />
-      <img src="/tech/astro.svg" alt="Astro" />
-      <img src="/tech/aws.svg" alt="AWS" />
-      <img src="/tech/gcloud.svg" alt="gcloud" />
-      <img src="/tech/csharp.svg" alt="CSharp" />
-      <img src="/tech/cpp.svg" alt="CPP" />
-    </div>
-
-    <!-- <script>
-  import gsap from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import { MotionPathPlugin } from "gsap/all";
-  gsap.registerPlugin(MotionPathPlugin);
-  gsap.registerPlugin(ScrollTrigger);
-
-  gsap.defaults({
-    ease: "power2.in",
-    duration: 0.5,
-  });
-
-  let t3 = gsap.timeline({
-    scrollTrigger: {
-      trigger: "#aboutPanel",
-      toggleActions: "play none none none",
-      pin: true,
-      start: "top top",
-      end: "+=2000",
-    },
-  });
-</script> -->
   </div>
 </section>

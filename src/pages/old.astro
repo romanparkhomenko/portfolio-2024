@@ -12,7 +12,7 @@ import Canvas from "../components/Canvas.astro";
 ---
 
 <Layout title="Roman Parkhomenko | Software Engineer">
-  <Canvas />
+  <!-- <Canvas /> -->
   <main>
     <section class="panel" id="introPanel">
       <div class="intro">
@@ -137,4 +137,100 @@ import Canvas from "../components/Canvas.astro";
     // boxShadow: "20px 20px 60px #0a0f14, -20px -20px 60px #2a3b50",
     stagger: 0.1,
   });
+  // tl.to(".emoji")
+
+  // gsap.to(".intro", {
+  //   boxShadow:
+  //     "20px 20px 40px var(--primary), -20px -20px 40px var(--primary-shadow)",
+  //   // boxShadow: "20px 20px 40px #bebebe, -20px -20px 40px #ffffff",
+  //   addClass: "pop",
+  //   duration: 5,
+  //   ease: "power2",
+  // });
+
+  // gsap.to(".headshot", {
+  //   boxShadow:
+  //     "inset 5px 5px 10px var(--primary), inset -5px -5px 10px var(--primary-shadow)",
+  //   // boxShadow: "inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff",
+  //   duration: 4,
+  //   delay: 1,
+  //   ease: "power1.out",
+  // });
+
+  // --- RED PANEL ---
+  // gsap.from(".line-1", {
+  //   scrollTrigger: {
+  //     trigger: ".line-1",
+  //     scrub: true,
+  //     start: "top bottom",
+  //     end: "top top",
+  //   },
+  //   scaleX: 0,
+  //   transformOrigin: "left center",
+  //   ease: "none",
+  // });
+
+  // // --- ORANGE PANEL ---
+  // gsap.from(".line-2", {
+  //   scrollTrigger: {
+  //     trigger: ".orange",
+  //     scrub: true,
+  //     pin: true,
+  //     start: "top top",
+  //     end: "+=100%",
+  //   },
+  //   scaleX: 0,
+  //   transformOrigin: "left center",
+  //   ease: "none",
+  // });
+
+  // --- PURPLE/GREEN PANEL ---
+  // var tl = gsap.timeline({
+  //   scrollTrigger: {
+  //     trigger: ".purple",
+  //     scrub: true,
+  //     pin: true,
+  //     start: "top top",
+  //     end: "+=100%",
+  //   },
+  // });
+
+  // tl.from(".purple p", {
+  //   scale: 0.3,
+  //   rotation: 45,
+  //   autoAlpha: 0,
+  //   ease: "power2",
+  // })
+  //   .from(
+  //     ".line-3",
+  //     { scaleX: 0, transformOrigin: "left center", ease: "none" },
+  //     0
+  //   )
+  //   .to(".purple", { backgroundColor: "#28a92b" }, 0);
+
+  // possible solution for old iOS bugs that don't display things inside an iframe correctly. Create a --full-height CSS variable and use it instead of height: 100%
+  // function readHeight() {
+  // 		if (ScrollTrigger.isScrolling()) {
+  // 			console.log("wait until end...");
+  // 			ScrollTrigger.addEventListener("scrollEnd", readHeight);
+  // 		} else {
+  // 			ScrollTrigger.removeEventListener("scrollEnd", readHeight);
+  // 			window.removeEventListener("resize", readHeight);
+  // 			let scrollFunc = ScrollTrigger.getScrollFunc(window),
+  // 				scrollProgress = scrollFunc() / ScrollTrigger.maxScroll(window),
+  // 				docStyle = document.documentElement.style,
+  // 				bodyStyle = document.body.style;
+  // 			bodyStyle.overflow = "auto";
+  // 			docStyle.setProperty("--full-height", "100%");
+  // 			docStyle.setProperty("--full-height", window.innerHeight + "px");
+  // 			bodyStyle.overflow = "unset";
+  // 			setTimeout(function() {
+  // 				window.addEventListener("resize", readHeight);
+  // 			}, 500);
+  // 			ScrollTrigger.refresh(true);
+  // 			scrollFunc(scrollProgress * ScrollTrigger.maxScroll(window));
+  // 		}
+  // 	}
+
+  // 💚 Happy tweening!
 </script>
