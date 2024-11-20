@@ -45,23 +45,59 @@
       1000
     );
     camera.position.z = 400;
+    // camera.position.z = 600;
 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color("#1a2532");
-    scene.fog = new THREE.Fog("#1a2532", 1, 1000);
+    // scene.background = new THREE.Color("#1a2532");
+    // scene.fog = new THREE.Fog("#fff", 1, 1000);
+    // scene.fog = new THREE.Fog("#243144", 1, 1000);
 
     object = new THREE.Object3D();
     scene.add(object);
 
-    const geometry = new THREE.SphereGeometry(1, 4, 4);
-    const material = new THREE.MeshPhongMaterial({
-      color: 0xffffff,
-      flatShading: true,
-    });
+    const geometry = new THREE.SphereGeometry(1, 7, 4);
+    // const geometry = new THREE.DodecahedronGeometry(1, 8);
+    // const material = new THREE.MeshPhongMaterial({
+    //   color: 0xffffff,
+    //   flatShading: true,
+    // });
 
     // const material = new THREE.MeshPhongMaterial({
     //   color: "#243144",
     //   flatShading: true,
+    //   reflectivity: 100,
+    //   shininess: 1000,
+    //   emissive: "#243144",
+    // });
+
+    const material = new THREE.MeshPhysicalMaterial({
+      color: "#243144",
+      flatShading: true,
+      // reflectivity: 100,
+      // shininess: 1000,
+      roughness: 0.1,
+      metalness: 1,
+      // emissive: "#243144",
+      clearcoat: 1,
+      clearcoatRoughness: 0.1,
+    });
+
+    // const material = new THREE.MeshStandardMaterial({
+    //   color: "#243144",
+    //   flatShading: true,
+    //   // reflectivity: 100,
+    //   // shininess: 1000,
+    //   roughness: 0.1,
+    //   metalness: 1,
+    //   // emissive: "#243144",
+    //   // clearcoat: 1,
+    // });
+
+    // const material = new THREE.MeshToonMaterial({
+    //   color: "#243144",
+    //   // flatShading: true,
+    //   // reflectivity: 1,
+    //   // shininess: 150,
     // });
 
     for (let i = 0; i < 100; i++) {
@@ -79,12 +115,64 @@
       object.add(mesh);
     }
 
-    scene.add(new THREE.AmbientLight("#243144", 1));
-    // scene.add(new THREE.AmbientLight("#cccccc", 1));
+    // const ambientLightColor = "#ffffff";
+    const ambientLightColor = "#243144";
+    const ambientLightZed = 1;
+    const ambientLightIntensity = 1000;
+    const ambientLight = new THREE.AmbientLight(
+      ambientLightColor,
+      ambientLightIntensity
+    );
+    ambientLight.position.set(0, 0, ambientLightZed);
+    scene.add(ambientLight);
 
-    const light = new THREE.DirectionalLight("#1a2532", 1);
-    light.position.set(0, 0, 0);
+    // const directionalLightColor = "#ffffff";
+    // const directionalLightColor = "#243144";
+    const directionalLightColor = "#1a2532";
+    const directionalLightZed = 400;
+    const directionLightIntensity = 1000;
+    const light = new THREE.DirectionalLight(
+      directionalLightColor,
+      directionLightIntensity
+    );
+    light.position.set(-1, -1, directionalLightZed);
     scene.add(light);
+
+    const directionalLight2Color = "#fff";
+    const directionalLight2Zed = -400;
+    const directionLight2Intensity = 100;
+    const light2 = new THREE.DirectionalLight(
+      directionalLight2Color,
+      directionLight2Intensity
+    );
+    light2.position.set(1, 1, directionalLight2Zed);
+    scene.add(light2);
+
+    const directionalLight3Color = "#ff6600";
+    const directionalLight3Zed = 300;
+    const directionLight3Intensity = 100;
+    const light3 = new THREE.DirectionalLight(
+      directionalLight3Color,
+      directionLight3Intensity
+    );
+    light3.position.set(-300, -300, directionalLight3Zed);
+    scene.add(light3);
+
+    const directionLight4Color = "#0099cc";
+    const directionLight4Zed = -300;
+    const directionLight4Intensity = 100;
+    const light4 = new THREE.DirectionalLight(
+      directionLight4Color,
+      directionLight4Intensity
+    );
+    light4.position.set(300, 300, directionLight4Zed);
+    scene.add(light4);
+
+    // const light2 = new THREE.DirectionalLight("#ff6600", 10);
+    // light2.position.set(1, 1, 1);
+    // scene.add(light2);
+
+    // light.raycast = true;
 
     // const light = new THREE.DirectionalLight("#ffffff", 1);
     // light.position.set(0, 0, 1);
@@ -107,18 +195,18 @@
     renderer.setSize(window.innerWidth, getHeight());
 
     const animate = () => {
-      object.rotation.x += 0.001;
+      // object.rotation.x += 0.001;
       object.rotation.y += 0.001;
 
       // light.position.set(
       //   (mouseX - camera.position.x) * 0.005,
-      //   (-mouseY - camera.position.y) * 0.005,
-      //   1
+      //   (mouseY + camera.position.y) * 0.005,
+      //   lightPosition
       // );
 
-      light.position.set(-mouseX * 0.001, mouseY * 0.001, 1);
+      // light.position.set(-mouseX * 0.001, mouseY * 0.001, 1);
 
-      composer.render();
+      // composer.render();
       // line.rotation.x += 0.01;
       // line.rotation.y += 0.01;
       // cube.rotation.x += 0.01;
@@ -129,7 +217,7 @@
 
       // camera.lookAt(scene.position);
 
-      // renderer.render(scene, camera);
+      renderer.render(scene, camera);
     };
 
     renderer.setAnimationLoop(animate);
@@ -137,8 +225,8 @@
 
     // postprocessing
 
-    composer = new EffectComposer(renderer);
-    composer.addPass(new RenderPass(scene, camera));
+    // composer = new EffectComposer(renderer);
+    // composer.addPass(new RenderPass(scene, camera));
 
     // const effect1 = new ShaderPass(DotScreenShader);
     // effect1.uniforms["scale"].value = 4;
@@ -148,8 +236,8 @@
     // effect2.uniforms["amount"].value = 0.0015;
     // composer.addPass(effect2);
 
-    const effect3 = new OutputPass();
-    composer.addPass(effect3);
+    // const effect3 = new OutputPass();
+    // composer.addPass(effect3);
 
     document.addEventListener("mousemove", onDocumentMouseMove);
   };
