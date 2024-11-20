@@ -39,7 +39,9 @@ import { Years } from "./Years";
       <div class="bio-block degree-container">
         <p class="label">Degree</p>
         <div class="bio-content">
-          <p>Bachelor of Science in Computer Science</p>
+          <p>
+            Bachelors of Science, Computer Science - Grand Canyon University
+          </p>
         </div>
       </div>
     </div>
@@ -85,10 +87,20 @@ import { Years } from "./Years";
           scrollTrigger: {
             trigger: "#aboutPanel",
             toggleActions: "play none none none",
-            // pin: true,
-            start: "top top",
+            start: "+500",
             end: "+=2000",
           },
+        });
+
+        t3.from(".bio-block", {
+          autoAlpha: 0,
+          x: -500,
+          stagger: 0.1,
+        });
+
+        t3.from(".tech-stack", {
+          autoAlpha: 0,
+          x: 500,
         });
 
         // Get Icon Container

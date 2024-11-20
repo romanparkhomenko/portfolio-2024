@@ -126,11 +126,10 @@ import "../styles/_experience.scss";
   </div>
 </section>
 
-<!-- <script>
+<script>
   import gsap from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import { MotionPathPlugin } from "gsap/all";
-  gsap.registerPlugin(MotionPathPlugin);
+
   gsap.registerPlugin(ScrollTrigger);
 
   gsap.defaults({
@@ -142,14 +141,14 @@ import "../styles/_experience.scss";
     scrollTrigger: {
       trigger: "#experiencePanel",
       toggleActions: "play none none none",
-      pin: true,
-      start: "top top",
+      start: "+500",
       end: "+=2000",
     },
   });
+
   t2.from(".job-container", {
     opacity: 0,
     y: 100,
     stagger: 0.2,
   });
-</script> -->
+</script>

@@ -25,18 +25,16 @@ main {
   position: relative;
   min-height: 100vh;
   box-sizing: border-box;
-  // padding: 10px;
 }
 
 div.intro {
+  background-color: var(--panel-color);
+  backdrop-filter: var(--panel-backdrop);
   position: relative;
   z-index: 1;
   margin: 0 auto;
   padding: 2rem;
   border-radius: 50px;
-  // box-shadow:
-  //   20px 20px 40px var(--primary),
-  //   -20px -20px 40px var(--primary-shadow);
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -66,16 +64,14 @@ div.intro {
 }
 
 div.intro-buttons {
+  background-color: var(--panel-color);
+  backdrop-filter: var(--panel-backdrop);
   position: relative;
   z-index: 1;
   margin: 4rem auto 0;
   padding: 2rem;
   border-radius: 50px;
-  // box-shadow:
-  //   20px 20px 40px var(--primary),
-  //   -20px -20px 40px var(--primary-shadow);
   display: flex;
-  // flex-flow: column;
   align-items: center;
   justify-content: center;
   gap: 1rem;
@@ -89,10 +85,8 @@ div.intro-buttons {
     justify-content: center;
     padding: 1rem;
     border-radius: 50px;
-    background: linear-gradient(145deg, #17212d, #1c2836);
-    box-shadow:
-      20px 20px 60px #0a0f14,
-      -20px -20px 60px #2a3b50;
+    background-color: var(--panel-color);
+    backdrop-filter: var(--panel-backdrop);
 
     a,
     a:visited {
