@@ -24,16 +24,25 @@ import Canvas from "../components/Canvas.astro";
 
       <div class="intro-buttons">
         <div class="button-container github">
-          <img src="/github.svg" alt="" />
+          <a href="https://github.com/romanparkhomenko" target="_blank">
+            <img src="/github.svg" alt="GitHub Logo" />
+          </a>
         </div>
         <div class="button-container linkedin">
-          <img src="/linkedin.svg" alt="" />
+          <a
+            href="https://www.linkedin.com/in/roman-parkhomenko/"
+            target="_blank"
+          >
+            <img src="/linkedin.svg" alt="LinkedIn Logo" />
+          </a>
         </div>
         <div class="button-container email">
-          <a href="mailto:rsparkhomenko@gmail.com">💌</a>
+          <a href="mailto:rsparkhomenko@gmail.com" target="_blank">💌</a>
         </div>
         <div class="button-container resume">
-          <img src="/resume.svg" alt="" />
+          <a href="/romanresume.pdf" target="_blank">
+            <img src="/resume.svg" alt="Resume Logo" />
+          </a>
         </div>
       </div>
     </section>
@@ -71,7 +80,7 @@ import Canvas from "../components/Canvas.astro";
   tl.from(".intro-header-name", { opacity: 0, y: 100 });
   tl.from(".intro", {
     backgroundColor: "transparent",
-    backdropFilter: "saturation(180%) blur(0px)",
+    // backdropFilter: "saturation(180%) blur(0px)",
   });
   tl.from(".emoji", { autoAlpha: 0, width: 0, duration: 0.75 });
   tl.from(".emoji", {
@@ -86,7 +95,7 @@ import Canvas from "../components/Canvas.astro";
       autoAlpha: 0,
       y: 100,
     },
-    "=-0.5"
+    "=-1"
   );
   tl.fromTo(
     ".button-container",

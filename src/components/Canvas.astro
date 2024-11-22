@@ -19,6 +19,7 @@
     makeSpotlightHelper,
   } from "../js/GUIUtils.ts";
   import { GUI } from "three/addons/libs/lil-gui.module.min.js";
+  import TWEEN from "three/addons/libs/tween.module.js";
 
   // INIT CONTAINER
   const container = document.querySelector(".canvas-container") as HTMLElement;
@@ -59,8 +60,8 @@
 
   // INIT BACKGROUND PLANE
   const planeGeo = new THREE.PlaneGeometry(
-    container.offsetWidth,
-    container.offsetHeight
+    window.innerWidth,
+    window.innerHeight
   );
   const planeMat = new THREE.MeshPhongMaterial({
     color: "#fff",
@@ -81,10 +82,11 @@
   const clusterMaterial = new THREE.MeshPhysicalMaterial({
     color: "#fff",
     flatShading: true,
-    // reflectivity: 100,
+    reflectivity: 1,
     // shininess: 1000,
     roughness: 0.1,
     metalness: 1,
+    // metalness: 0.1,
     clearcoat: 1,
     clearcoatRoughness: 0.1,
   });
@@ -168,11 +170,91 @@
 
   const animate = () => {
     cluster.rotation.y += 0.001;
+    TWEEN.update();
     renderer.render(scene, camera);
   };
 
+  window.addEventListener("resize", () => {
+    planeBg.scale.x = window.innerWidth;
+    planeBg.scale.y = getHeight();
+    camera.aspect = window.innerWidth / getHeight();
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, getHeight());
+  });
+
+  function getRandomInt(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function tween(
+    light: THREE.SpotLight | THREE.DirectionalLight,
+    minLightZed: number,
+    maxLightZed: number,
+    minLightX: number = -400,
+    maxLightX: number = 400,
+    minLightY: number = -400,
+    maxLightY: number = 400
+  ) {
+    new TWEEN.Tween(light.position)
+      .to(
+        {
+          x: getRandomInt(minLightX, maxLightX),
+          y: getRandomInt(minLightY, maxLightY),
+          z: getRandomInt(minLightZed, maxLightZed),
+          // z: Math.random() * 3 + lightZed,
+          // z: Math.random() * 3 + -1 * lightZed,
+        },
+        Math.random() * 3000 + 2000
+      )
+      .easing(TWEEN.Easing.Quadratic.Out)
+      .start();
+  }
+
+  function rotationTween() {
+    new TWEEN.Tween(cluster.rotation)
+      .to(
+        {
+          x: Math.floor(window.scrollY * 0.001),
+          z: Math.ceil(window.scrollY * -0.001),
+          // z: Math.random() * 3 + lightZed,
+          // z: Math.random() * 3 + -1 * lightZed,
+        },
+        Math.random() * 3000 + 2000
+      )
+      .easing(TWEEN.Easing.Quadratic.InOut)
+      .start();
+
+    // new TWEEN.Tween(camera.position)
+    //   .to(
+    //     {
+    //       x: getRandomInt(-100, 100),
+    //       y: getRandomInt(-100, 100),
+    //       z: getRandomInt(300, 600),
+    //       // z: Math.random() * 3 + lightZed,
+    //       // z: Math.random() * 3 + -1 * lightZed,
+    //     },
+    //     Math.random() * 3000 + 2000
+    //   )
+    //   .easing(TWEEN.Easing.Quadratic.InOut)
+    //   .start();
+  }
+
+  function updateTweens() {
+    tween(light1, 200, 400);
+    tween(light2, -1, 1, -200, 200, -600, -800);
+    tween(light3, -1, 1, 600, 800, -200, 200);
+    tween(light4, -1, 1, -600, -800, -200, 200);
+    tween(light5, 200, 400);
+    rotationTween();
+
+    setTimeout(updateTweens, 5000);
+  }
+
   renderer.setAnimationLoop(animate);
   container.appendChild(renderer.domElement);
+  updateTweens();
 
   // init();
 </script>

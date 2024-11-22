@@ -10,6 +10,20 @@ section.experience-panel {
   position: relative;
   min-height: 100vh;
   box-sizing: border-box;
+  padding: 1rem;
+}
+
+h2.experience-headline {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  padding: 1rem;
+  font-size: 2rem;
+  font-weight: 700;
+  max-width: 1200px;
+  @media screen and (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 }
 
 div.job-container {
@@ -50,6 +64,10 @@ div.job-container {
       max-width: 250px;
       object-fit: contain;
       cursor: pointer;
+    }
+
+    @media screen and (max-width: 768px) {
+      aspect-ratio: 2 / 1;
     }
   }
 

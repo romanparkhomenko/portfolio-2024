@@ -12,6 +12,18 @@ section.about-panel {
   box-sizing: border-box;
 }
 
+h2.about-headline {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  // padding: 1rem;
+  font-size: 2rem;
+  font-weight: 700;
+  @media screen and (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+}
+
 div.about-container {
   display: flex;
   align-items: center;
@@ -42,6 +54,7 @@ div.tech-stack {
   flex-flow: column;
   aspect-ratio: 1 / 2;
   padding: 1rem;
+  box-sizing: border-box;
   p.label {
     width: 100%;
     min-width: 100px;
@@ -81,6 +94,9 @@ div.bio-blocks {
   gap: 2rem;
   width: 100%;
   padding: 1rem;
+  @media screen and (max-width: 768px) {
+    padding: 0;
+  }
 }
 
 div.bio-block {
