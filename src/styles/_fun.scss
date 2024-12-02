@@ -17,7 +17,7 @@ h2.fun-headline {
   display: flex;
   align-items: flex-start;
   width: 100%;
-  padding: 1rem;
+  // padding: 1rem;
   font-size: 2rem;
   font-weight: 700;
   max-width: 1200px;
@@ -38,13 +38,14 @@ div.project-container {
   background-color: var(--panel-color);
   backdrop-filter: var(--panel-backdrop);
   border-radius: 1rem;
+  flex-flow: row wrap;
 
   @media screen and (max-width: 768px) {
     flex-direction: column;
   }
 
   a.project-box {
-    flex: 1 0 50%;
+    flex: 1 0 30%;
     display: flex;
     flex-flow: column;
     align-items: center;

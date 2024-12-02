@@ -2,6 +2,25 @@
 
 <script>
   import * as THREE from "three";
+  import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+  import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+  import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
+
+  import { RGBShiftShader } from "three/addons/shaders/RGBShiftShader.js";
+  import { DotScreenShader } from "three/addons/shaders/DotScreenShader.js";
+  import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+  import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+  import {
+    ColorGUIHelper,
+    makeDirectionalLightGUI,
+    makeSpotLightGUI,
+    makeXYZGUI,
+    makeDirectionalLightHelper,
+    makeSpotlightHelper,
+    makeMaterialGUI,
+    makeGeometryGUI,
+  } from "../js/GUIUtils.ts";
+  import { GUI } from "three/addons/libs/lil-gui.module.min.js";
   import TWEEN from "three/addons/libs/tween.module.js";
 
   // INIT CONTAINER
@@ -17,6 +36,7 @@
   renderer.setSize(window.innerWidth, getHeight());
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  const gui = new GUI();
   // END INIT RENDERER AND GUI
 
   // INIT CAMERA
@@ -27,10 +47,18 @@
     2000
   );
   camera.position.set(0, 0, 400);
+  makeXYZGUI(gui, camera.position, "cameraPosition", undefined, -800, 800, 1);
   // END INIT CAMERA
 
   // INIT SCENE
   const scene = new THREE.Scene();
+  // END INIT SCENE
+
+  // INIT CONTROLS
+  const controls = new OrbitControls(camera, container);
+  controls.target.set(0, 0, 0);
+  controls.update();
+  // END INIT CONTROLS
 
   // INIT BACKGROUND PLANE
   const planeGeo = new THREE.PlaneGeometry(
@@ -44,13 +72,25 @@
   planeBg.receiveShadow = true;
   planeBg.position.set(0, 0, -400);
   scene.add(planeBg);
+  makeXYZGUI(gui, planeBg.position, "planePosition", undefined, -800, 800, 1);
+  // add color to gui
+  gui.add(new ColorGUIHelper(planeMat, "color"), "value").name("planeColor");
   // END INIT BACKGROUND PLANE
 
   // INIT CLUSTER OBJECT
   const cluster = new THREE.Object3D();
   scene.add(cluster);
-  const clusterGeometry = new THREE.SphereGeometry(1, 7, 4);
-  const clusterMaterial = new THREE.MeshPhysicalMaterial({
+
+  const geometryParams = {
+    radius: 1,
+    widthSegments: 7,
+    heightSegments: 4,
+    phiStart: 0,
+    phiLength: Math.PI * 2,
+  };
+  let clusterGeometry = new THREE.SphereGeometry(1, 7, 4);
+
+  let clusterMaterial = new THREE.MeshPhysicalMaterial({
     color: "#fff",
     flatShading: true,
     reflectivity: 1,
@@ -58,13 +98,32 @@
     metalness: 1,
     clearcoat: 1,
     clearcoatRoughness: 0.1,
-    iridescence: 1,
-    iridescenceIOR: 3,
-    sheen: 1,
-    sheenRoughness: 0.1,
-    sheenColor: "#0099cc",
+    iridescence: 0,
+    iridescenceIOR: 1.5,
+    sheen: 0,
+    sheenRoughness: 0,
+    sheenColor: "#fff",
     anisotropy: 1,
+    transmission: 0,
   });
+
+  makeGeometryGUI(gui, geometryParams, "clusterGeometry", () => {
+    clusterGeometry = new THREE.SphereGeometry(
+      geometryParams.radius,
+      geometryParams.widthSegments,
+      geometryParams.heightSegments,
+      geometryParams.phiStart,
+      geometryParams.phiLength
+    );
+    cluster.children.forEach((child) => {
+      // @ts-ignore
+      child.geometry.dispose();
+      // @ts-ignore
+      child.geometry = clusterGeometry;
+    });
+  });
+
+  makeMaterialGUI(gui, clusterMaterial, "clusterMaterial", () => {});
 
   for (let i = 0; i < 100; i++) {
     const mesh = new THREE.Mesh(clusterGeometry, clusterMaterial);
@@ -78,10 +137,11 @@
     mesh.receiveShadow = true;
     cluster.add(mesh);
   }
+
   // END INIT CLUSTER OBJECT
 
   // INIT LIGHTS
-  const light1Color = "#243144";
+  const light1Color = "#fff";
   const light1Zed = 400;
   const light1Intensity = 100000;
   const light1 = new THREE.SpotLight(light1Color, light1Intensity);
@@ -93,36 +153,40 @@
   light1.penumbra = 1;
   scene.add(light1);
   scene.add(light1.target);
+  makeSpotlightHelper(gui, light1, "light1", scene);
 
-  const light2Color = "#ffffff";
-  const light2Zed = 2;
-  const light2Intensity = 4;
+  const light2Color = "#243144";
+  const light2Zed = 0;
+  const light2Intensity = 500;
   const light2 = new THREE.DirectionalLight(light2Color, light2Intensity);
   light2.position.set(0, -800, light2Zed);
   light2.target.position.set(0, 0, 0);
   light2.castShadow = true;
   scene.add(light2);
   scene.add(light2.target);
+  makeDirectionalLightHelper(gui, light2, "light2", scene);
 
   const light3Color = "#ff6600";
   const light3Zed = 0;
-  const light3Intensity = 4;
+  const light3Intensity = 50;
   const light3 = new THREE.DirectionalLight(light3Color, light3Intensity);
   light3.position.set(800, 0, light3Zed);
   light3.target.position.set(0, 0, 0);
   light3.castShadow = true;
   scene.add(light3);
   scene.add(light3.target);
+  makeDirectionalLightHelper(gui, light3, "light3", scene);
 
   const light4Color = "#0099cc";
   const light4Zed = 0;
-  const light4Intensity = 4;
+  const light4Intensity = 50;
   const light4 = new THREE.DirectionalLight(light4Color, light4Intensity);
   light4.position.set(-800, 0, light4Zed);
   light4.target.position.set(0, 0, 0);
   light4.castShadow = true;
   scene.add(light4);
   scene.add(light4.target);
+  makeDirectionalLightHelper(gui, light4, "light4", scene);
 
   const light5Color = "#1a2532";
   const light5Zed = 200;
@@ -136,6 +200,7 @@
   light5.penumbra = 0;
   scene.add(light5);
   scene.add(light5.target);
+  makeSpotlightHelper(gui, light5, "light5", scene);
   // END INIT LIGHTS
 
   const animate = () => {
@@ -173,6 +238,8 @@
           x: getRandomInt(minLightX, maxLightX),
           y: getRandomInt(minLightY, maxLightY),
           z: getRandomInt(minLightZed, maxLightZed),
+          // z: Math.random() * 3 + lightZed,
+          // z: Math.random() * 3 + -1 * lightZed,
         },
         Math.random() * 3000 + 2000
       )
@@ -186,6 +253,8 @@
         {
           x: Math.floor(window.scrollY * 0.001),
           z: Math.ceil(window.scrollY * -0.001),
+          // z: Math.random() * 3 + lightZed,
+          // z: Math.random() * 3 + -1 * lightZed,
         },
         Math.random() * 3000 + 2000
       )

@@ -22,6 +22,34 @@ const { title } = Astro.props;
 
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta
+      name="description"
+      content="Hi! I'm Roman Parkhomenko. I'm a senior full-stack engineer specializing in frontend technologies. I've been working in the industry for nearly a decade, and have had the opportunity to work on a variety of projects. I've worked on everything from small websites to large-scale applications, and I've had the chance to work with some amazing people along the way."
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://romanparkhomenko.com/" />
+    <meta property="og:title" content="Roman Parkhomenko | Software Engineer" />
+    <meta
+      property="og:description"
+      content="Hi! I'm Roman Parkhomenko. I'm a senior full-stack engineer specializing in frontend technologies. I've been working in the industry for nearly a decade, and have had the opportunity to work on a variety of projects. I've worked on everything from small websites to large-scale applications, and I've had the chance to work with some amazing people along the way."
+    />
+    <meta property="og:image" content="/metaImage.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://romanparkhomenko.com/" />
+    <meta
+      property="twitter:title"
+      content="Roman Parkhomenko | Software Engineer"
+    />
+    <meta
+      property="twitter:description"
+      content="Hi! I'm Roman Parkhomenko. I'm a senior full-stack engineer specializing in frontend technologies. I've been working in the industry for nearly a decade, and have had the opportunity to work on a variety of projects. I've worked on everything from small websites to large-scale applications, and I've had the chance to work with some amazing people along the way."
+    />
+    <meta property="twitter:image" content="/metaImage.png" />
   </head>
   <body>
     <slot />

@@ -52,6 +52,95 @@ export const makeXYZGUI = (
   folder.open();
 };
 
+interface MaterialParams {
+  color: THREE.Color;
+  reflectivity: number;
+  roughness: number;
+  metalness: number;
+  clearcoat: number;
+  clearcoatRoughness: number;
+  iridescence: number;
+  iridescenceIOR: number;
+  sheen: number;
+  sheenRoughness: number;
+  sheenColor: THREE.Color;
+  anisotropy: number;
+  transmission: number;
+}
+
+export const makeMaterialParamsGUI = (
+  gui: GUI,
+  material: THREE.MeshPhysicalMaterial,
+  name: string,
+  onChangeFn: any
+) => {
+  const folder = gui.addFolder(name);
+  folder.addColor(new ColorGUIHelper(material, "color"), "value").name("color");
+  folder.add(material, "reflectivity", 0, 1, 0.1).onChange(onChangeFn);
+  folder.add(material, "roughness", 0, 1, 0.1).onChange(onChangeFn);
+  folder.add(material, "metalness", 0, 1, 0.1).onChange(onChangeFn);
+  folder.add(material, "clearcoat", 0, 1, 0.1).onChange(onChangeFn);
+  folder.add(material, "clearcoatRoughness", 0, 1, 0.1).onChange(onChangeFn);
+  folder.add(material, "iridescence", 0, 1, 0.1).onChange(onChangeFn);
+  folder.add(material, "iridescenceIOR", 0, 5, 0.1).onChange(onChangeFn);
+  folder.add(material, "sheen", 0, 1, 0.1).onChange(onChangeFn);
+  folder.add(material, "sheenRoughness", 0, 1, 0.1).onChange(onChangeFn);
+  folder
+    .addColor(new ColorGUIHelper(material, "sheenColor"), "value")
+    .name("sheenColor");
+  folder.add(material, "anisotropy", 0, 1, 0.1).onChange(onChangeFn);
+  folder.add(material, "transmission", 0, 1, 0.1).onChange(onChangeFn);
+  folder.open();
+};
+
+export const makeMaterialGUI = (
+  gui: GUI,
+  material: THREE.MeshPhysicalMaterial,
+  name: string,
+  onChangeFn: any
+) => {
+  const folder = gui.addFolder(name);
+  folder.addColor(new ColorGUIHelper(material, "color"), "value").name("color");
+  folder.add(material, "reflectivity", 0, 1, 0.1).onChange(onChangeFn);
+  folder.add(material, "roughness", 0, 1, 0.1).onChange(onChangeFn);
+  folder.add(material, "metalness", 0, 1, 0.1).onChange(onChangeFn);
+  folder.add(material, "clearcoat", 0, 1, 0.1).onChange(onChangeFn);
+  folder.add(material, "clearcoatRoughness", 0, 1, 0.1).onChange(onChangeFn);
+  folder.add(material, "iridescence", 0, 1, 0.1).onChange(onChangeFn);
+  folder.add(material, "iridescenceIOR", 0, 5, 0.1).onChange(onChangeFn);
+  folder.add(material, "sheen", 0, 1, 0.1).onChange(onChangeFn);
+  folder.add(material, "sheenRoughness", 0, 1, 0.1).onChange(onChangeFn);
+  folder
+    .addColor(new ColorGUIHelper(material, "sheenColor"), "value")
+    .name("sheenColor");
+  folder.add(material, "anisotropy", 0, 1, 0.1).onChange(onChangeFn);
+  folder.add(material, "transmission", 0, 1, 0.1).onChange(onChangeFn);
+  folder.open();
+};
+
+interface SphereGeometryParams {
+  radius: number;
+  widthSegments: number;
+  heightSegments: number;
+  phiStart: number;
+  phiLength: number;
+}
+
+export const makeGeometryGUI = (
+  gui: GUI,
+  geometry: SphereGeometryParams,
+  name: string,
+  onChangeFn: any
+) => {
+  const folder = gui.addFolder(name);
+  folder.add(geometry, "radius", 1, 10, 1).onChange(onChangeFn);
+  folder.add(geometry, "widthSegments", 0, 100, 1).onChange(onChangeFn);
+  folder.add(geometry, "heightSegments", 0, 100, 1).onChange(onChangeFn);
+  folder.add(geometry, "phiStart", 0, 10, 1).onChange(onChangeFn);
+  folder.add(geometry, "phiLength", 0, 12, 1).onChange(onChangeFn);
+  folder.open();
+};
+
 export const makeDirectionalLightGUI = (
   gui: GUI,
   light: DirectionalLight,
