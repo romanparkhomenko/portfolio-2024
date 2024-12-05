@@ -63,7 +63,7 @@ import Fun from "../components/Fun.astro";
   gsap.registerPlugin(ScrollTrigger);
   gsap.defaults({
     ease: "power2.in",
-    duration: 0.5,
+    duration: 0.3,
   });
 
   const buttonsToHover = document.querySelectorAll(".button-container");
@@ -79,7 +79,8 @@ import Fun from "../components/Fun.astro";
   });
 
   let tl = gsap.timeline();
-  tl.from(".intro-header-hi", { opacity: 0, y: 100 });
+  tl.from(".canvas-container", { opacity: 0, duration: 1 });
+  tl.from(".intro-header-hi", { opacity: 0, y: 100 }, "<");
   tl.from(".intro-header-name", { opacity: 0, y: 100 });
   tl.from(".intro", {
     backgroundColor: "transparent",
@@ -98,7 +99,7 @@ import Fun from "../components/Fun.astro";
       autoAlpha: 0,
       y: 100,
     },
-    "=-1"
+    "<"
   );
   tl.fromTo(
     ".button-container",
@@ -112,7 +113,8 @@ import Fun from "../components/Fun.astro";
       y: 0,
       boxShadow: "20px 20px 60px #233244, -20px -20px 60px #111821",
       stagger: 0.1,
-    }
+    },
+    "<"
   );
   tl.to(".button-container", {
     autoAlpha: 1,
